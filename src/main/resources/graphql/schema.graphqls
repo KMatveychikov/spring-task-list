@@ -1,0 +1,75 @@
+type Task {
+    _id: String
+    title: String
+    text: String
+    comments: [Comment]
+    todos: [Todo]
+    files: [FileInfo]
+    isComplete: Boolean
+    owner: User
+    responsibleUser: User
+    performerUsers: [User]
+    creationTime: String
+    endTime: String
+}
+
+type Comment {
+    id: String
+    text: String
+    author: User
+    postTime: String
+}
+
+type Todo {
+    id: String
+    text: String
+    isDone: Boolean
+}
+
+type User {
+    _id: String
+    username: String
+    email: String
+    password: String
+    role: Role
+}
+
+type FileInfo {
+    id: String
+}
+
+enum Role {
+    _USER,
+    _ADMIN
+}
+
+type Chat {
+    id: String
+    title: String
+    messages:[ChatMessage]
+    owner: User
+    members: [User]
+}
+
+type ChatMessage {
+    id: String
+    author: String
+    text: String
+    timeStamp: String
+}
+
+type Query {
+    getTasksByUserId(userId: String): [Task]
+}
+
+type Mutation {
+    addTask(title: String, text: String): Task
+    editTaskTitle(taskId: String, newTitle: String): Task
+    editTaskText(taskId: String, newText: String): Task
+    addComment(taskId: String, commentText: String): Task
+    addTodo(taskId: String, todoText: String): Task
+    completeTask(taskId: String): Task
+    setResponsibleUser(taskId: String, responsibleUserId: String): Task
+    addPerformerUser(taskId: String, performerUserId: String): Task
+    removePerformerUser(taskId: String, performerUserId: String): Task
+}
