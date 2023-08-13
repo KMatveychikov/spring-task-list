@@ -34,6 +34,23 @@ type User {
     role: Role
 }
 
+input AuthRequest {
+    email: String
+    password: String
+}
+
+type AuthResponse {
+    token: String
+    user: User
+}
+
+input RegisterRequest {
+    name: String
+    email: String
+    password: String
+    role: Role
+}
+
 type FileInfo {
     id: String
 }
@@ -63,6 +80,9 @@ type Query {
 }
 
 type Mutation {
+    login(request: AuthRequest): AuthResponse
+    register(request: RegisterRequest): AuthResponse
+
     addTask(title: String, text: String): Task
     editTaskTitle(taskId: String, newTitle: String): Task
     editTaskText(taskId: String, newText: String): Task

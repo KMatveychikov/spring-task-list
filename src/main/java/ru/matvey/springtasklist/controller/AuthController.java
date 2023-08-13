@@ -2,6 +2,8 @@ package ru.matvey.springtasklist.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,21 +21,14 @@ import java.util.List;
 public class AuthController {
 
     private final AuthService service;
-
-    @PostMapping("/register")
-    public ResponseEntity<AuthResponse> register(
-            @RequestBody RegisterRequest request
-    ) {
-        return ResponseEntity.ok(service.register(request));
+    @MutationMapping
+    public AuthResponse register(@Argument RegisterRequest request){
+        return service.register(request);
     }
 
-
-    @PostMapping("/login")
-    public ResponseEntity<AuthResponse> authenticate(
-            @RequestBody AuthRequest request
-    )  {
-        return ResponseEntity.ok()
-                .body(service.authenticate(request));
+    @MutationMapping
+    public AuthResponse login(@Argument AuthRequest request) {
+        return service.authenticate(request);
     }
 
     @GetMapping("/get_all")
