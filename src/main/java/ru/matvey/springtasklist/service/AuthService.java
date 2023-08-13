@@ -36,6 +36,8 @@ public class AuthService {
                 .username(request.getName())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(request.getRole())
+                .chatsId(new ArrayList<>())
+                .tasksId(new ArrayList<>())
                 .build();
         userRepository.save(user);
 

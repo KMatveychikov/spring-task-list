@@ -76,13 +76,15 @@ type ChatMessage {
 }
 
 type Query {
+#task
     getTasksByUserId(userId: String): [Task]
 }
 
 type Mutation {
+#auth
     login(request: AuthRequest): AuthResponse
     register(request: RegisterRequest): AuthResponse
-
+#task
     addTask(title: String, text: String): Task
     editTaskTitle(taskId: String, newTitle: String): Task
     editTaskText(taskId: String, newText: String): Task
