@@ -5,6 +5,7 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import ru.matvey.springtasklist.model.User;
@@ -21,12 +22,15 @@ import java.util.List;
 public class AuthController {
 
     private final AuthService service;
+
     @MutationMapping
-    public AuthResponse register(@Argument RegisterRequest request){
+    @PreAuthorize("isAnonymous()")
+    public AuthResponse register(@Argument RegisterRequest request) {
         return service.register(request);
     }
 
     @MutationMapping
+    @PreAuthorize("isAnonymous()")
     public AuthResponse login(@Argument AuthRequest request) {
         return service.authenticate(request);
     }
